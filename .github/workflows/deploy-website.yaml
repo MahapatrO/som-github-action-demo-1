@@ -25,6 +25,8 @@ jobs:
     build:
         needs: test
         runs-on: ubuntu-latest
+        outputs:
+            som-script-file: ${{steps.som-publish.outputs.som-file-name}}
         steps:
             - name: Get Code
               uses: actions/checkout@v4
@@ -32,6 +34,9 @@ jobs:
               run: npm ci
             - name: Build Website
               run: npm run build
+            - name: Publish Js filename
+              id: som-publish
+              run: find dist/assets/*.js -type f -exedir echo 'som-file-name={}' >> $GITHUB_OUTPUT';'
             - name: Upload Artifacts
               uses: actions/upload-artifact@v4
               with:
@@ -50,5 +55,7 @@ jobs:
                 name: som-dist-file
             - name: Output Artifact Contents
               run: ls
+            - name: Output filename
+              run: echo "{{needs.build.outputs.som-script-file}}"
             - name: Deploy Code
               run: echo "Deploying..."
