@@ -56,6 +56,6 @@ jobs:
             - name: Output Artifact Contents
               run: ls
             - name: Output filename
-              run: echo "{{needs.build.outputs.som-script-file}}"
+              run: echo "${{needs.build.outputs.som-script-file}}"
             - name: Deploy Code
               run: echo "Deploying..."
