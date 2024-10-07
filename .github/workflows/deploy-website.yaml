@@ -36,12 +36,19 @@ jobs:
               uses: actions/upload-artifact@v4
               with:
                 name: som-dist-file
-                path: |
-                    dist
-                    package.json
+                path: dist
+                # path: |
+                #     dist
+                #     package.json
     deploy:
         needs: build
         runs-on: ubuntu-latest
         steps:
+            - name: Get Build artifacts
+              uses: actions/download-artifact@v4
+              with:
+                name: som-dist-file
+            - name: Output Artifact Contents
+              run: ls
             - name: Deploy Code
               run: echo "Deploying..."
