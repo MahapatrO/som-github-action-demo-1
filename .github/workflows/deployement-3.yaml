@@ -2,7 +2,20 @@ name: Deployemnt Ecercise 3
 on:
     pull_request:
         types: [opened, reopened]
+        branches: 
+            - main
+            - dev
+            - 'dev-*' # dev-new dev-new-main dev-test-test-test
+            - 'feature/**' # feature/test feature/test/test feature/test/test/test
     workflow_dispatch:
+    push:
+        branches: 
+            - main
+            - dev
+            - 'dev-*' # dev-new dev-new-main dev-test-test-test
+            - 'feature/**' # feature/test feature/test/test feature/test/test/test
+        paths-ignore: 
+            - '.github/workflows/*'
 jobs:
     deploy:
         runs-on: ubuntu-latest
